@@ -1,4 +1,8 @@
-import { onCall, HttpsError } from 'firebase-functions/v2/https'
+import { onCall, HttpsError, type CallableOptions } from 'firebase-functions/v2/https'
+
+// Gen-2 callables run on Cloud Run; without public invoker, the endpoint returns 403
+// and browsers may surface it as a CORS error. Auth is still enforced inside handlers.
+const callableOptions: CallableOptions = { invoker: 'public' }
 import { getFirestore, FieldValue } from 'firebase-admin/firestore'
 import { getAuth } from 'firebase-admin/auth'
 import { logger } from 'firebase-functions'
@@ -25,7 +29,7 @@ function normalize(code: unknown): string {
  * createLoginCode: authenticated user generates (or rotates) their personal
  * login code. Old code (if any) is revoked.
  */
-export const createLoginCode = onCall(async (request) => {
+export const createLoginCode = onCall(callableOptions, async (request) => {
   const uid = request.auth?.uid
   if (!uid) {
     throw new HttpsError('unauthenticated', 'Login required')
@@ -74,7 +78,7 @@ export const createLoginCode = onCall(async (request) => {
  * signInWithCode: unauthenticated. Exchanges a personal login code for a
  * Firebase custom token usable with signInWithCustomToken on the client.
  */
-export const signInWithCode = onCall(async (request) => {
+export const signInWithCode = onCall(callableOptions, async (request) => {
   const code = normalize(request.data?.code)
   if (code.length !== CODE_LENGTH) {
     throw new HttpsError('invalid-argument', 'Invalid code')

@@ -29,5 +29,6 @@ export const db: Firestore = initializeFirestore(app, {
 
 export const auth: Auth = getAuth(app)
 
-// Functions region must match deploy region (default us-central1).
-export const functions: Functions = getFunctions(app)
+// Must match Cloud Functions deploy region (functions/src/config.ts).
+const FUNCTIONS_REGION = 'us-central1'
+export const functions: Functions = getFunctions(app, FUNCTIONS_REGION)

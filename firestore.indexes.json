@@ -1,19 +1,4 @@
 {
-  "indexes": [
-    {
-      "collectionGroup": "feedings",
-      "queryScope": "COLLECTION",
-      "fields": [
-        { "fieldPath": "occurredAt", "order": "DESCENDING" }
-      ]
-    },
-    {
-      "collectionGroup": "sleepSessions",
-      "queryScope": "COLLECTION",
-      "fields": [
-        { "fieldPath": "startedAt", "order": "DESCENDING" }
-      ]
-    }
-  ],
+  "indexes": [],
   "fieldOverrides": []
 }

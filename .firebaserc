@@ -3,5 +3,11 @@
     "prod": "barbenapp-50013"
   },
   "targets": {},
-  "etags": {}
+  "etags": {
+    "barbenapp-50013": {
+      "extensionInstances": {
+        "firestore-send-email": "7b35f1b59627c2003a625256a53640d73210698e34da7715eb9b9f7ba21d9192"
+      }
+    }
+  }
 }
